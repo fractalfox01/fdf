@@ -9,3 +9,5 @@ fdf project for 42 - a 3D wireframe in c
 + https://www.scratchapixel.com/
 
 + http://www.kmjn.org/notes/3d_rendering_intro.html
+
++ http://faculty.cs.tamu.edu/jchai/cpsc641_spring10/PerspectiveProjection.pdf
