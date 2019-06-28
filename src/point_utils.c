@@ -6,13 +6,13 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 21:39:59 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/06/25 12:15:47 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:41:47 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_fdf.h"
 
-void    scale_points(t_global *glbl, int i)
+void    scale_points(t_global *glb, int i)
 {
     int **tab;
     int a;
@@ -20,20 +20,31 @@ void    scale_points(t_global *glbl, int i)
 
     a = 0;
     b = i;
-    tab = glbl->fdf->tab;
-    glbl->fdf->dx = 0;
-    glbl->fdf->dy = 0;
-    glbl->fdf->x = 0;
-    glbl->fdf->y = 0;
-    glbl->fdf->step = 0;
-    glbl->x_scale = ((WIN_W - 200) / 2) / glbl->fdf->width;
-    glbl->y_scale = ((WIN_H - 200) / 2) / glbl->fdf->height;
-    glbl->fdf->xinc = glbl->x_scale;
-    glbl->fdf->yinc = glbl->y_scale;
-    while (i < glbl->fdf->total)
+    tab = glb->fdf->tab;
+    glb->offset_x = 50;
+    glb->offset_y = 50;
+    glb->fdf->dx = 0;
+    glb->fdf->dy = 0;
+    glb->fdf->x = 0;
+    glb->fdf->y = 0;
+    glb->fdf->xinc = 0;
+    glb->fdf->yinc = 0;
+    glb->rot_x = 0;
+    glb->rot_y = 0;
+    glb->x_scale = (WORLD_W - 100) / (glb->fdf->width - 1);
+    glb->y_scale = (WORLD_H - 100) / (glb->fdf->height - 1);
+    if (glb->x_scale > glb->y_scale)
     {
-        tab[i][0] *= glbl->x_scale;
-        tab[i][1] *= glbl->y_scale;
+        a = glb->x_scale;
+        glb->x_scale = glb->y_scale;
+        glb->y_scale = a;
+    }
+    glb->fdf->xstep = glb->x_scale;
+    glb->fdf->ystep = glb->y_scale;
+    while (i < glb->fdf->total)
+    {
+        tab[i][0] *= glb->x_scale;
+        tab[i][1] *= glb->y_scale;
         i++;
     }
 }

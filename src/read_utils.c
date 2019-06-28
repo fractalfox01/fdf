@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 21:24:46 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/06/24 21:55:28 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:18:12 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,32 @@ void	add_points(t_points *fdf, char *line, int i)
     fdf->x += 1;
 }
 
-void		read_file(t_points *fdf, char *file_name, void *mlx, void *mlx_win)
+int		read_file(t_points *fdf, char *file_name, void *mlx, void *mlx_win)
 {
-	int		**tab;
 	int		i;
 	char	*line;
 
 	i = 0;
+	fdf->fd = 0;
 	if (file_name)
 	{
 		line = ft_strnew(BUFF_SIZE);
 		fdf->fd = open(file_name, O_RDONLY);
-		fdf->x = 0;
-		fdf->y = 0;
-		fdf->tab = malloc(sizeof(int *) * (fdf->height * fdf->width));
-        fdf->total = (fdf->width * fdf->height);
-		while (get_next_line(fdf->fd, &line) == 1)
+		if (fdf->fd > 0)
 		{
-			add_points(fdf, line, i);
-			i += fdf->width;
-			ft_memdel((void **)&line);
+			fdf->x = 0;
+			fdf->y = 0;
+			fdf->tab = malloc(sizeof(int *) * (fdf->height * fdf->width));
+			fdf->total = (fdf->width * fdf->height);
+			while (get_next_line(fdf->fd, &line) == 1)
+			{
+				add_points(fdf, line, i);
+				i += fdf->width;
+				ft_memdel((void **)&line);
+			}
+			close(fdf->fd);
+			return (1);
 		}
-		close(fdf->fd);
 	}
+	return (0);
 }

@@ -6,107 +6,203 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:33:39 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/06/26 10:08:21 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/06/27 12:01:17 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_fdf.h"
 
-void	draw_x(t_global *glbl, int p)
+void	set_def(t_global *glb, int p)
 {
-	int			x;
-	int			y;
-	int			err;
-	int			e2;
 	t_points	*fdf;
-	int			p_start;
 
-	p_start = p;
-	fdf = glbl->fdf;
-	x = glbl->fdf->tab[p][0];
-	y = glbl->fdf->tab[p][1];
-	DX = abs(glbl->fdf->tab[(p + 1)][1] - x);
-	XINC = (glbl->fdf->tab[p][0] < glbl->fdf->tab[p + 1][0]) ? 1 : -1;
-	DY = abs(glbl->fdf->tab[p + 1][1] - glbl->fdf->tab[p][1]);
-	YINC = (glbl->fdf->tab[p][1] < glbl->fdf->tab[p + 1][1]) ? 1 : -1;
-	err = (DX > DY ? DX : -DY) / 2;
-	while ((p - p_start) < (fdf->width - 1))
+	fdf = glb->fdf;
+	DX = abs(fdf->tab[(p + 1)][1] - glb->vec->x);
+	XINC = (fdf->tab[p][0] < fdf->tab[p + 1][0]) ? 1 : -1;
+	DY = abs(fdf->tab[p + 1][1] - fdf->tab[p][1]);
+	YINC = (fdf->tab[p][1] < fdf->tab[p + 1][1]) ? 1 : -1;
+}
+
+void	set_vec(t_global *glb, int p)
+{
+	t_vec		*vec;
+	t_points	*fdf;
+
+	fdf = glb->fdf;
+	vec = glb->vec;
+	vec->x = glb->fdf->tab[p][0];
+	vec->y = glb->fdf->tab[p][1];
+	vec->err = (DX > DY ? DX : -DY) / 2;
+}
+
+void	reverse_x(t_global *glb, int p)
+{
+	t_points	*fdf;
+	t_vec		*vec;
+	int			x;
+	int			x0;
+	int			y;
+
+	x0 = 0;
+	fdf = glb->fdf;
+	vec = glb->vec;
+	vec->p_start = p;
+	while (((p - vec->p_start) + 1) < (fdf->width))
 	{
-		while (x < fdf->tab[p + 1][1])
+		x0 = fdf->tab[p][0];
+		x = fdf->tab[p][1];
+		y = fdf->tab[p + 1][1];
+		if (x0 < y)
 		{
-			mlx_pixel_put(MLX_P, MLX_W, x + OFFSET_X, y + OFFSET_Y, 0xfffff);
-			if (x == glbl->fdf->tab[p + 1][0] && y == glbl->fdf->tab[p + 1][1])
-				break ;
-			e2 = err;
-			if (e2 > -DX)
+			while (x++ < y)
 			{
-				err -= DX;
-				x += YINC;
-			}
-			else if (e2 < DY)
-			{
-				err += DY;
-				x -= XINC;
+				mlx_pixel_put(glb->mlx, glb->mlx_win, (x0++ + 50), (fdf->tab[p][0] + 50) , 0xfffff);
 			}
 		}
-		printf("done: %d\n", p);
+		else if (x0 == y)
+		{
+			while (x < x0)
+			{
+				mlx_pixel_put(glb->mlx, glb->mlx_win, (x++ + 50), (x0 + 50), 0xfffff);
+			}
+		}
+		//mlx_do_sync(glb->mlx);
 		p++;
 	}
 }
 
-void	draw_y(t_global *glbl, int p)
+void	reverse_y(t_global *glb, int p)
 {
-	int			x;
-	int			y;
-	int			err;
-	int			e2;
 	t_points	*fdf;
-	int			p_start;
+	t_vec		*vec;
+	int			x;
+	int			x0;
+	int			y;
 
-	p_start = p;
-	fdf = glbl->fdf;
-	x = glbl->fdf->tab[p][0];
-	y = glbl->fdf->tab[p][1];
-	DX = abs(glbl->fdf->tab[(p + 1)][1] - x);
-	XINC = (glbl->fdf->tab[p][0] < glbl->fdf->tab[p + 1][0]) ? 1 : -1;
-	DY = abs(glbl->fdf->tab[p + 1][1] - glbl->fdf->tab[p][1]);
-	YINC = (glbl->fdf->tab[p][1] < glbl->fdf->tab[p + 1][1]) ? 1 : -1;
-	err = (DX > DY ? DX : -DY) / 2;
-	while ((p - p_start) < (fdf->width - 1))
+	x0 = 0;
+	fdf = glb->fdf;
+	vec = glb->vec;
+	vec->p_start = p;
+	while (((p - vec->p_start) + 1) < (fdf->width))
 	{
-		while (y < fdf->tab[p + fdf->width][0])
+		x0 = fdf->tab[p][1];
+		x = fdf->tab[p][0];
+		y = fdf->tab[p + fdf->width][0];
+		if (x < y)
 		{
-			mlx_pixel_put(MLX_P, MLX_W, x + OFFSET_X, y + OFFSET_Y, 0xfffff);
-			if (x == glbl->fdf->tab[p + fdf->width][0] && y == glbl->fdf->tab[p + fdf->width][1])
-				break ;
-			e2 = err;
-			if (e2 > -DX)
+			while (x++ < y)
 			{
-				err -= DX;
-				x += XINC;
-				y += YINC;
-			}
-			else if (e2 < DY)
-			{
-				err -= DY;
-				y += YINC;
+				mlx_pixel_put(glb->mlx, glb->mlx_win, (fdf->tab[p][0] + 50), (x0++ + 50), 0xfffff);
 			}
 		}
-		printf("done: %d\n", p);
+		//mlx_do_sync(glb->mlx);
 		p++;
 	}
 }
 
-void	draw_points(t_global *glbl)
-{
-	int	a;
 
+
+
+void	draw_x(t_global *glb, int p)
+{
+	t_points	*fdf;
+	t_vec		*vec;
+	int			x;
+	int			x0;
+	int			y;
+
+	x0 = 0;
+	fdf = glb->fdf;
+	vec = glb->vec;
+	vec->p_start = p;
+	while (((p - vec->p_start) + 1) < (fdf->width))
+	{
+		x0 = fdf->tab[p][0];
+		x = fdf->tab[p][1];
+		y = fdf->tab[p + 1][1];
+		if (x0 < y)
+			while (x++ < y)
+				mlx_pixel_put(glb->mlx, glb->mlx_win, (x + glb->offset_x), (x0 + glb->offset_y), 0xfffff);
+		else if (x0 >= y)
+			while (x < x0)
+				mlx_pixel_put(glb->mlx, glb->mlx_win, (x++ + glb->offset_x), (x0 + glb->offset_y), 0xfffff);
+		p++;
+	}
+}
+
+void	draw_y(t_global *glb, int p)
+{
+	t_points	*fdf;
+	t_vec		*vec;
+	int			x;
+	int			x0;
+	int			y;
+
+	x0 = 0;
+	fdf = glb->fdf;
+	vec = glb->vec;
+	vec->p_start = p;
+	if ((p + fdf->width) < (fdf->total))
+	{
+		while ((p + fdf->width) < (fdf->total))
+		{
+			x0 = fdf->tab[p][1];
+			x = fdf->tab[p][0];
+			y = fdf->tab[p + fdf->width][0];
+			if (x < y)
+				while (x++ < y)
+					mlx_pixel_put(glb->mlx, glb->mlx_win, (x0 + glb->offset_x), (x + glb->offset_y), 0xfffff);
+			p++;
+		}
+	}
+}
+
+void	vec_init(t_vec *vec)
+{
+	vec->x = 0;
+	vec->y = 0;
+	vec->err = 0;
+	vec->e2 = 0;
+	vec->p_start = 0;
+}
+
+void	equal_draw(t_global *glb, int a)
+{
+	draw_x(glb, a);
+	draw_y(glb, a);
+}
+
+void	reverse_draw(t_global *glb, int a)
+{
+	reverse_x(glb, a);
+	reverse_y(glb, a);
+}
+
+void	draw_points(t_global *glb)
+{
+	int		a;
+	int		i;
+	t_vec	vec;
+	t_points	*fdf;
+	
 	a = 0;
-	while (a < glbl->fdf->total)
+	i = 0;
+	vec_init(&vec);
+	glb->vec = &vec;
+	fdf = glb->fdf;
+	//console_print_points(*fdf);
+	while (a < glb->fdf->total)
 	{
-		draw_x(glbl, a);
-		draw_y(glbl, a);
-		a += glbl->fdf->width;
-		mlx_do_sync(glbl->mlx);
+		if (fdf->width == fdf->height)
+			equal_draw(glb, a);
+		if (fdf->width > fdf->height)
+			equal_draw(glb, a);
+		if (fdf->width < fdf->height)
+			equal_draw(glb, a);
+		//glb->fdf->y = glb->y_scale * ++i;
+		//glb->fdf->ystep = 0;
+		a += glb->fdf->width;
+		//mlx_do_sync(glb->mlx);
 	}
+	mlx_do_sync(glb->mlx);
 }
