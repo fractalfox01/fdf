@@ -18,7 +18,7 @@ DEBUG= -g
 
 all: $(NAME)
 
-SRC= $(addprefix src/, main.c ft_fdf.c fdf_console_log.c read_utils.c draw.c point_utils.c)
+SRC= $(addprefix src/, main.c ft_fdf.c fdf_console_log.c read_utils.c draw.c point_utils.c rotate_utils.c)
 
 MLXSRC= $(addprefix minilibx/, mlx_clear_window.c mlx_get_data_addr.c \
 	mlx_int_param_event.c mlx_loop.c mlx_put_image_to_window.c mlx_destroy_image.c \
@@ -42,7 +42,7 @@ $(NAME):
 	@$(CC) -g -Iminilibx_macos/ -Lminilibx_macos/ -lmlx $(MLX) $(LIBFT) $(SRC) -o fdf
 
 clean:
-	@clear
+	@echo "\033[d"
 	@echo "\033[0;32mCleaning Up..."
 	make -C src/libft clean
 
