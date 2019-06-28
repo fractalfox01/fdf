@@ -1,3 +1,7 @@
 .gitignore
 minilibx/*
 minilibx/._*
+src/libft/*.o
+fdf.dSYM
+fdf
+.vscode
