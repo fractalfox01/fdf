@@ -23,6 +23,8 @@ typedef struct  s_read
     int         c_pre;
     int         col;
     int         row;
+    int         origin_x;
+    int         origin_y;
 }               t_read;
 
 typedef struct  s_user_space
@@ -78,5 +80,10 @@ void    fdf_close(t_fdf *glb);
 void    map_reset(t_fdf *glb);
 void    map_rotate_right(t_fdf *glb);
 void    map_rotate_left(t_fdf *glb);
+void    init_global(t_fdf *glb);
+void    init_map(t_fdf *glb);
+void    init_read(t_fdf *glb);
+void    init_img(t_fdf *glb, t_img *img);
+void    init_world(t_fdf *glb, t_world *wld);
 
 #endif

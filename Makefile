@@ -20,7 +20,8 @@ DEBUG= -g
 
 all: $(NAME)
 
-SRC= $(addprefix src/, main.c fdf.c print_util.c read_util.c free_utils.c draw_utils.c)
+SRC= $(addprefix src/, main.c fdf.c print_util.c read_util.c free_utils.c draw_utils.c \
+	glb_init.c fdf_hooks1.c fdf_hooks2.c)
 
 MLXSRC= $(addprefix minilibx/, mlx_clear_window.c mlx_get_data_addr.c \
 	mlx_int_param_event.c mlx_loop.c mlx_put_image_to_window.c mlx_destroy_image.c \
