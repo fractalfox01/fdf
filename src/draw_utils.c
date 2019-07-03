@@ -16,6 +16,7 @@ void    draw_map(t_fdf *glb)
 {
     if (glb)
     {
+        
         return ;
     }
 }
