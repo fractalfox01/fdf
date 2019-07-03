@@ -16,7 +16,7 @@ all: $(NAME)
 clean: 
 	@echo "\033[1;36mCleaning Up Library, removing all object files.\033[0;31m"
 	@for f in $(OBJ) ; do \
-		rm $$f 2>/dev/null && echo "\033[0;36mSuccessfully Removed $$f" || echo "\033[d"; \
+		rm $$f 2>/dev/null && echo "\033[0;36mSuccessfully Removed $$f" || echo ""; \
 	done
 
 fclean: clean

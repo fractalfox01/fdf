@@ -10,7 +10,9 @@ x86= -Lminilibx/ -lmlx_x86_64
 
 INT= -Lminilibx/ -lmlx_intel-mac
 
-MLX= -L minilibx -lmlx -framework OpenGL -framework AppKit
+MLX= -Lminilibx -Iminilibx -lmlx -framework OpenGL -framework AppKit
+
+MACOS= -Lminilibx_macos/ -Iminilibx_macos/ -lmlx
 
 FRAMEWORK= -framework OpenGL -framework AppKit
 
@@ -18,7 +20,7 @@ DEBUG= -g
 
 all: $(NAME)
 
-SRC= $(addprefix src/, main.c ft_fdf.c fdf_console_log.c read_utils.c draw.c point_utils.c rotate_utils.c)
+SRC= $(addprefix src/, main.c fdf.c print_util.c read_util.c free_utils.c draw_utils.c)
 
 MLXSRC= $(addprefix minilibx/, mlx_clear_window.c mlx_get_data_addr.c \
 	mlx_int_param_event.c mlx_loop.c mlx_put_image_to_window.c mlx_destroy_image.c \
@@ -29,7 +31,7 @@ MLXSRC= $(addprefix minilibx/, mlx_clear_window.c mlx_get_data_addr.c \
 	mlx_int_do_nothing.c mlx_key_hook.c mlx_new_window.c mlx_get_color_value.c \
 	mlx_int_get_visual.c mlx_lib_xpm.c mlx_pixel_put.c)
 
-LIBFT= $(addprefix src/libft/, get_n_char.c ft_isdigit.c ft_abs.c ft_strcpy.c ft_strsplit_int.c ft_atoi.c ft_putnbr.c ft_strclr.c ft_memcpy.c ft_strncpy.c ft_strxlen.c ft_wordcount.c ft_strsplit.c ft_strbuild.c ft_putchar.c ft_putstr.c ft_strdup.c ft_strlen.c ft_strdel.c ft_strnew.c get_next_line.c ft_bzero.c ft_memalloc.c ft_memdel.c ft_memset.c ft_strchr.c ft_strjoin.c)
+LIBFT= -Isrc/libft/ -Lsrc/libft/ -lft
 
 GREEN= '\033[0;31'
 
@@ -39,7 +41,7 @@ $(NAME):
 	@echo "\033[0;33m"
 	@make -C src/libft
 	#gcc -g -I -L minilibx_macos/ -lmlx -framework OpenGL -framework AppKit -L $(LIB) -lft make
-	@$(CC) -g -Iminilibx_macos/ -Lminilibx_macos/ -lmlx $(MLX) $(LIBFT) $(SRC) -o fdf
+	@$(CC) -g $(MACOS) $(MLX) $(LIBFT) $(SRC) -o fdf
 
 clean:
 	@echo "\033[d"
