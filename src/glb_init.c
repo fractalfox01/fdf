@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:57:59 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/03 11:59:00 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:28:27 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void    init_world(t_fdf *glb, t_world *wld)
 {
-    wld->s_x = 0;
-    wld->s_y = 0;
-    wld->x_offset = 0;
-    wld->y_offset = 0;
+    wld->s_x = 1380 / 2;
+    wld->s_y = 820 / 2;
+    wld->x_offset = (1280 / glb->read.col) + 50;
+    wld->y_offset = (720 / glb->read.row) + 50;
 }
 
 void    init_img(t_fdf *glb, t_img *img)
@@ -71,8 +71,8 @@ void    init_global(t_fdf *glb)
         map_rotate_right \
     };
     glb->mlx = mlx_init();
-    glb->mlx_win = mlx_new_window(glb->mlx, 1280, 720, "FDF - BY TVANDIVI");
-    glb->mlx_img = mlx_new_image(glb->mlx, 1280, 720);
+    glb->mlx_win = mlx_new_window(glb->mlx, 1380, 820, "FDF - BY TVANDIVI");
+    glb->mlx_img = mlx_new_image(glb->mlx, 1380, 820);
     init_read(glb);
     init_map(glb);
 }
