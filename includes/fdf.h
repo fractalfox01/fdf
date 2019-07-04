@@ -38,7 +38,8 @@ typedef struct  s_user_space
 
 typedef struct  s_map
 {
-    int         *tab;
+    float       *tab;
+    float       *scaled_tab;
     int         co_x;
     int         co_y;
     int         z0;
