@@ -31,8 +31,16 @@ typedef struct  s_user_space
 {
     int         x_offset;
     int         y_offset;
+    int         x_change;
+    int         y_change;
+    int         x_margin;
+    int         x_margin_min;
+    int         y_margin;
+    int         y_margin_min;
     int         s_x;
     int         s_y;
+    int         win_x;
+    int         win_y;
 }               t_world;
 
 
@@ -81,10 +89,13 @@ void    fdf_close(t_fdf *glb);
 void    map_reset(t_fdf *glb);
 void    map_rotate_right(t_fdf *glb);
 void    map_rotate_left(t_fdf *glb);
+void    map_scale_up(t_fdf *glb);
+void    map_scale_down(t_fdf *glb);
 void    init_global(t_fdf *glb);
 void    init_map(t_fdf *glb);
 void    init_read(t_fdf *glb);
 void    init_img(t_fdf *glb, t_img *img);
 void    init_world(t_fdf *glb, t_world *wld);
+void    set_scaled(t_fdf *glb, int p);
 
 #endif

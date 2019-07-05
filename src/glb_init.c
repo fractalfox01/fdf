@@ -6,18 +6,27 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:57:59 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/03 20:28:27 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:30:54 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+#include <stdio.h>
 
 void    init_world(t_fdf *glb, t_world *wld)
 {
     wld->s_x = 1380 / 2;
     wld->s_y = 820 / 2;
-    wld->x_offset = (1280 / glb->read.col) + 50;
-    wld->y_offset = (720 / glb->read.row) + 50;
+    wld->win_x = 1280;
+    wld->win_y = 720;
+    wld->x_margin_min = 50;
+    wld->y_margin_min = 50;
+    wld->x_margin = 50;
+    wld->y_margin = 50;
+    wld->x_change = 1280;
+    wld->y_change = 720;
+    wld->x_offset = (wld->x_change / (glb->read.col - 1));
+    wld->y_offset = (wld->y_change / (glb->read.row - 1));
 }
 
 void    init_img(t_fdf *glb, t_img *img)
@@ -73,6 +82,7 @@ void    init_global(t_fdf *glb)
     glb->mlx = mlx_init();
     glb->mlx_win = mlx_new_window(glb->mlx, 1380, 820, "FDF - BY TVANDIVI");
     glb->mlx_img = mlx_new_image(glb->mlx, 1380, 820);
+    //init_world(glb, &glb->wld);
     init_read(glb);
     init_map(glb);
 }

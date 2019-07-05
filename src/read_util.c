@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:18:01 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/03 20:19:17 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:03:51 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,28 +132,33 @@ void    set_scaled(t_fdf *glb, int p)
 {
     int i;
     int j;
-    int changling;
-    int r_mid;
-    int c_mid;
-
-    changling = 0;
-    r_mid = get_mid(glb->read.row);
-    i = r_mid * -1;
-    c_mid = get_mid(glb->read.col);
-    j = c_mid * -1;
-    printf("r_mid: %2d\ni: %2d\nc_mid: %d\nj: %d\n\n", r_mid, i, c_mid, j);
-    while ((i + r_mid) < glb->read.row)
+    int a;
+    int b;
+    
+    a = glb->wld.x_margin;
+    b = glb->wld.y_margin;
+    i = 0;
+    j = 0;
+    printf("Map gets scaled here:\ni: %d\nj: %d\n\n", i, j);
+    /*
+        
+    */
+    while ((i) < glb->read.row)
     {
-        while ((j + c_mid) < glb->read.col)
+        while ((j) < glb->read.col)
         {
-            glb->map.scaled_tab[p] = (i);
+            glb->map.scaled_tab[p] = a;
+            a += glb->wld.x_offset;
             p++;
-            glb->map.scaled_tab[p] = j++;
+            glb->map.scaled_tab[p] = b;
             p++;
-            glb->map.scaled_tab[p] = glb->map.tab[p];
+            glb->map.scaled_tab[p] = ((glb->wld.y_offset / 10) * glb->map.tab[p]);
             p++;
+            j++;
         }
-        j = c_mid * -1;
+        j = 0;
+        a = glb->wld.x_margin;
+        b += glb->wld.y_offset;
         i++;
     }
 }
@@ -175,7 +180,6 @@ void    save_map(t_fdf *glb, char *fn)
         free((void *)(glb->read.line));
     }
     close(glb->read.fd);
-    set_scaled(glb, 0);
 }
 
 void    read_map(t_fdf *glb, char *filename)

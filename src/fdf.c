@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 13:57:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/03 16:43:14 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/05 11:41:29 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int     passoff(int key, t_fdf *glb)
         map_rotate_left(glb);
     else if (key == 13)                  /* rotate right: 'w' */
         map_rotate_right(glb);
+    else if (key == 2)                  /* scale up: 'd' */
+        map_scale_up(glb);
+    else if (key == 3)                  /* scale down: 'f' */
+        map_scale_down(glb);
     else
         ft_putstr(ft_strjoin(ft_strjoin("Key: ", ft_itoa(key)), "\n"));
     return (1);
@@ -49,6 +53,7 @@ int fdf(t_fdf *glb, char *filename)
         read_map(glb, filename);
         init_img(glb, &glb->img);
         init_world(glb, &glb->wld);
+        set_scaled(glb, 0);
         draw_map(glb);
         loop_hooks(glb);
     }
