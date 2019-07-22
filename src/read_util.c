@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:18:01 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/05 13:03:51 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/21 23:47:27 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,18 +97,23 @@ int    get_dimensions(t_fdf *glb)
     return (1);
 }
 
-int    add_points(t_fdf *glb, float *tab, char *line, int i)
+int    add_points(t_fdf *glb, float **tab, char *line, int ln)
 {
-    int s;
+    int i;
 
-    s = i;
-    while ((i - s) < (glb->read.col * 3))
+    i = 0;
+    while (i < (glb->read.col * 3))
     {
         if (ft_isdigit(*line))
         {
-            tab[i++] = (float)glb->map.co_x;
-            tab[i++] = (float)glb->map.co_y++;
-            tab[i++] = (float)ft_atoi(line);
+            tab[ln][i++] = (float)glb->map.x1;
+            tab[ln][i++] = (float)glb->map.y1++;
+            tab[ln][i] = (float)ft_atoi(line);
+            if (tab[ln][i] >  glb->map.color_max)
+                glb->map.color_max = tab[ln][i];
+            if (tab[ln][i] < glb->map.color_min)
+                glb->map.color_min = tab[ln][i];
+            i++;
         }
         while (ft_isdigit(*line))
             line++;
@@ -128,36 +133,29 @@ int     get_mid(int nbr)
     return (nbr / 2);
 }
 
-void    set_scaled(t_fdf *glb, int p)
+void    set_scaled(t_fdf *glb)
 {
     int i;
     int j;
     int a;
     int b;
     
-    a = glb->wld.x_margin;
-    b = glb->wld.y_margin;
+    a = -1 * ((glb->wld.win_x / (glb->read.col - 1)) / 2) * (glb->read.col - 1);
+    b = -1 * ((glb->wld.win_y / (glb->read.row - 1)) / 2) * (glb->read.row - 1);
     i = 0;
     j = 0;
-    printf("Map gets scaled here:\ni: %d\nj: %d\n\n", i, j);
-    /*
-        
-    */
     while ((i) < glb->read.row)
     {
-        while ((j) < glb->read.col)
+        while ((j) < glb->read.col * 3)
         {
-            glb->map.scaled_tab[p] = a;
+            glb->map.scaled_tab[i][j] = a;
             a += glb->wld.x_offset;
-            p++;
-            glb->map.scaled_tab[p] = b;
-            p++;
-            glb->map.scaled_tab[p] = ((glb->wld.y_offset / 10) * glb->map.tab[p]);
-            p++;
-            j++;
+            glb->map.scaled_tab[i][j + 1] = b;
+            glb->map.scaled_tab[i][j + 2] = ((glb->wld.y_offset / 4) * glb->map.tab[i][j + 2]);
+            j += 3;
         }
         j = 0;
-        a = glb->wld.x_margin;
+        a = -1 * ((glb->wld.win_x / (glb->read.col - 1)) / 2) * (glb->read.col - 1);
         b += glb->wld.y_offset;
         i++;
     }
@@ -166,18 +164,25 @@ void    set_scaled(t_fdf *glb, int p)
 void    save_map(t_fdf *glb, char *fn)
 {
     int i;
+    int j;
+    int size;
 
     i = 0;
-    glb->map.scaled_tab = (float *)malloc(sizeof(float) * ((glb->read.col * glb->read.row) * 3));
-    glb->map.tab = (float *)malloc(sizeof(float) * ((glb->read.col * glb->read.row) * 3));
+    j = 0;
+    size = glb->read.col;
+    glb->map.scaled_tab = (float **)malloc(sizeof(float *) * (glb->read.row * 3) + 1);
+    glb->map.tab = (float **)malloc(sizeof(float *) * (glb->read.row * 3));
     glb->read.fd = open(fn, O_RDONLY);
-    while (i < (glb->read.col * glb->read.row * 3))
+    while (i < (glb->read.row))
     {
         get_next_line(glb->read.fd, &glb->read.line);
-        i = add_points(glb, glb->map.tab, glb->read.line, i);
-        glb->map.co_x++;
-        glb->map.co_y = 0;
+        glb->map.tab[i] = (float *)malloc(sizeof(float) * (glb->read.col * 3));
+        glb->map.scaled_tab[i] = (float *)malloc(sizeof(float) * (glb->read.col * 3));
+        add_points(glb, glb->map.tab, glb->read.line, i);
+        glb->map.x1++;
+        glb->map.y1 = 0;
         free((void *)(glb->read.line));
+        i++;
     }
     close(glb->read.fd);
 }

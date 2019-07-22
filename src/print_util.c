@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:02:12 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/03 19:49:32 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/21 08:13:08 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,23 @@ void    print_usage(int i)
 void    print_map(t_fdf *glb)
 {
     int i;
+    int j;
 
     i = 0;
-    while (i < (glb->read.col * glb->read.row * 3))
+    j = 0;
+    while (i < glb->read.row)
     {
-        ft_putnbr(glb->map.scaled_tab[i]);
-        ft_putstr(" ");
+        while (j < (glb->read.col * 3))
+        {
+            ft_putnbr(glb->map.scaled_tab[i][j]);
+            ft_putstr(" ");
+            j++;
+            if ((j % 3) == 0)
+                ft_putchar('\t');
+        }
+        j = 0;
         i++;
-        if ((i % 3) == 0)
-            ft_putchar('\t');
-        if ((i % (glb->read.col * 3)) == 0)
-            ft_putchar('\n');
+        ft_putchar('\n');
     }
 }
 

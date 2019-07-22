@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:57:59 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/05 12:30:54 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/21 23:45:36 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void    init_world(t_fdf *glb, t_world *wld)
     wld->s_y = 820 / 2;
     wld->win_x = 1280;
     wld->win_y = 720;
-    wld->x_margin_min = 50;
-    wld->y_margin_min = 50;
+    wld->x_pad = 0;
+    wld->y_pad = 0;
     wld->x_margin = 50;
     wld->y_margin = 50;
     wld->x_change = 1280;
@@ -29,12 +29,15 @@ void    init_world(t_fdf *glb, t_world *wld)
     wld->y_offset = (wld->y_change / (glb->read.row - 1));
 }
 
-void    init_img(t_fdf *glb, t_img *img)
+void    init_camera(t_fdf *glb, t_cam *cam)
 {
-    img->data = NULL;
-    img->size = glb->read.col;
-    img->bpp = 4;
-    img->endian = 0;
+    int i;
+
+    i = 0;
+    cam->rotate_x = 20;
+    cam->rotate_y = 20;
+    while (i < 4)
+        cam->scaler[i++] = 1;
 }
 
 void    init_read(t_fdf *glb)
@@ -45,26 +48,28 @@ void    init_read(t_fdf *glb)
     read->fd = 0;
     read->row = 0;
     read->col = 0;
-    read->origin_x = 0;
-    read->origin_y = 0;
 }
 
 void    init_map(t_fdf *glb)
 {
     t_map   *map;
+    int     i;
 
+    i = 0;
     map = &glb->map;
-    map->co_x = 0;
-    map->co_y = 0;
-    map->iso = 0;
     map->theta_y = 0;
     map->theta_z = 0;
-    map->x_val = 0;
-    map->y0 = 0;
+    map->color_max = 0;
+    map->color_min = 0;
+    map->x1 = 0;
     map->y1 = 0;
-    map->z0 = 0;
-    map->z1 = 0;
-    map->zoom = 0;
+    map->dx = 0;
+    map->dy = 0;
+    while (i < 4)
+    {
+        map->p1[i++] = 0;
+        map->p2[i++] = 0;
+    }
 }
 
 void    init_global(t_fdf *glb)
@@ -82,7 +87,7 @@ void    init_global(t_fdf *glb)
     glb->mlx = mlx_init();
     glb->mlx_win = mlx_new_window(glb->mlx, 1380, 820, "FDF - BY TVANDIVI");
     glb->mlx_img = mlx_new_image(glb->mlx, 1380, 820);
-    //init_world(glb, &glb->wld);
+    init_camera(glb, &glb->cam);
     init_read(glb);
     init_map(glb);
 }

@@ -4,17 +4,14 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <math.h>
 #include "../minilibx/mlx.h"
-//#include "../minilibx_macos/mlx_int.h"
 #include "../src/libft/libft.h"
 
-typedef struct  s_img
-{
-    char        *data;
-    int         size;
-    int         endian;
-    int         bpp;
-}               t_img;
+#define WHITE 16777215
+#define RED 16711680
+#define GREEN 65280
+#define BLUE 255
 
 typedef struct  s_read
 {
@@ -23,40 +20,43 @@ typedef struct  s_read
     int         c_pre;
     int         col;
     int         row;
-    int         origin_x;
-    int         origin_y;
 }               t_read;
 
-typedef struct  s_user_space
+typedef struct  s_world
 {
     int         x_offset;
     int         y_offset;
     int         x_change;
     int         y_change;
     int         x_margin;
-    int         x_margin_min;
+    int         x_pad;
     int         y_margin;
-    int         y_margin_min;
+    int         y_pad;
     int         s_x;
     int         s_y;
     int         win_x;
     int         win_y;
 }               t_world;
 
+typedef struct  s_camera
+{
+    int         rotate_x;
+    int         rotate_y;
+    float       scaler[4];
+}               t_cam;
 
 typedef struct  s_map
 {
-    float       *tab;
-    float       *scaled_tab;
-    int         co_x;
-    int         co_y;
-    int         z0;
-    int         y0;
-    int         z1;
+    float       **tab;
+    float       **scaled_tab;
+    float       p1[3];
+    float       p2[3];
+    int         color_max;
+    int         color_min;
+    int         x1;
     int         y1;
-    int         zoom;
-    int         iso;
-    double      x_val;
+    int         dx;
+    int         dy;
     double      theta_y;
     double      theta_z;
 }               t_map;
@@ -66,7 +66,7 @@ typedef struct  s_fdf
     void        *mlx;
     void        *mlx_win;
     void        *mlx_img;
-    t_img       img;
+    t_cam       cam;
     t_read      read;
     t_map       map;
     t_world     wld;
@@ -89,13 +89,16 @@ void    fdf_close(t_fdf *glb);
 void    map_reset(t_fdf *glb);
 void    map_rotate_right(t_fdf *glb);
 void    map_rotate_left(t_fdf *glb);
+void    map_rotate_up(t_fdf *glb);
+void    map_rotate_down(t_fdf *glb);
 void    map_scale_up(t_fdf *glb);
 void    map_scale_down(t_fdf *glb);
 void    init_global(t_fdf *glb);
 void    init_map(t_fdf *glb);
 void    init_read(t_fdf *glb);
-void    init_img(t_fdf *glb, t_img *img);
 void    init_world(t_fdf *glb, t_world *wld);
-void    set_scaled(t_fdf *glb, int p);
+void    set_scaled(t_fdf *glb);
+void    init_camera(t_fdf *glb, t_cam *cam);
+void    rotate_points(t_fdf *glb);
 
 #endif
