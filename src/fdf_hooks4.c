@@ -1,49 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_hooks2.c                                       :+:      :+:    :+:   */
+/*   fdf_hooks4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/03 12:05:54 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/26 00:07:38 by tvandivi         ###   ########.fr       */
+/*   Created: 2019/07/24 22:02:49 by tvandivi          #+#    #+#             */
+/*   Updated: 2019/07/26 00:08:46 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	fdf_close(t_fdf *glb)
+void	map_scale_up(t_fdf *glb)
 {
-	ft_putstr("Closing Program...\n");
-	mlx_destroy_window(glb->mlx, glb->mlx_win);
-	free_map(glb);
-	exit(0);
-}
-
-void	map_left(t_fdf *glb)
-{
+	glb->wld.x_change += 50;
+	glb->wld.y_change += 50;
+	glb->wld.x_offset = (glb->wld.x_change / (glb->read.col - 1));
+	glb->wld.y_offset = (glb->wld.y_change / (glb->read.row - 1));
+	set_scaled(glb);
+	rotate_points(glb);
 	mlx_clear_window(glb->mlx, glb->mlx_win);
-	glb->wld.x_pad -= 10;
 	draw_map(glb);
 }
 
-void	map_right(t_fdf *glb)
+void	map_scale_down(t_fdf *glb)
 {
+	glb->wld.x_change -= 50;
+	glb->wld.y_change -= 50;
+	glb->wld.x_offset = (glb->wld.x_change / (glb->read.col - 1));
+	glb->wld.y_offset = (glb->wld.y_change / (glb->read.row - 1));
+	set_scaled(glb);
+	rotate_points(glb);
 	mlx_clear_window(glb->mlx, glb->mlx_win);
-	glb->wld.x_pad += 10;
-	draw_map(glb);
-}
-
-void	map_down(t_fdf *glb)
-{
-	mlx_clear_window(glb->mlx, glb->mlx_win);
-	glb->wld.y_pad += 10;
-	draw_map(glb);
-}
-
-void	map_up(t_fdf *glb)
-{
-	mlx_clear_window(glb->mlx, glb->mlx_win);
-	glb->wld.y_pad -= 10;
 	draw_map(glb);
 }

@@ -4,8 +4,6 @@ FLAGS= -Wall -Werror -Wextra
 
 LIBS= -Lsrc/libft -lft -Lminilibx -lmlx
 
-#MLX= -Lmlx/ -lmlx
-
 x86= -Lminilibx/ -lmlx_x86_64
 
 INT= -Lminilibx/ -lmlx_intel-mac
@@ -20,8 +18,8 @@ DEBUG= -g
 
 all: $(NAME)
 
-SRC= $(addprefix src/, main.c fdf.c print_util.c read_util.c free_utils.c draw_utils.c \
-	glb_init.c fdf_hooks1.c fdf_hooks2.c)
+SRC= $(addprefix src/, main.c fdf.c print_util.c read_util1.c read_util2.c free_utils.c draw_utils1.c draw_utils2.c \
+	glb_init.c fdf_hooks1.c fdf_hooks2.c fdf_hooks3.c fdf_hooks4.c)
 
 MLXSRC= $(addprefix minilibx/, mlx_clear_window.c mlx_get_data_addr.c \
 	mlx_int_param_event.c mlx_loop.c mlx_put_image_to_window.c mlx_destroy_image.c \
@@ -41,8 +39,7 @@ $(NAME):
 	@make -C minilibx
 	@echo "\033[0;33m"
 	@make -C src/libft
-	#gcc -g -I -L minilibx_macos/ -lmlx -framework OpenGL -framework AppKit -L $(LIB) -lft make
-	@$(CC) -g $(MACOS) $(MLX) $(LIBFT) $(SRC) -o fdf
+	@$(CC) $(MACOS) $(MLX) $(LIBFT) $(SRC) -o fdf
 
 clean:
 	@echo "\033[d"

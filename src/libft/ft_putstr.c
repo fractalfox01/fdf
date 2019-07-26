@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvandivi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 12:12:08 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/03/27 20:57:19 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/26 00:45:54 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	ft_putstr(char *str)
 {
 	int	len;
-	
+
 	len = ft_strlen(str);
 	write(1, &*str, len);
 }

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:21:39 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/06/15 12:29:03 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/26 00:49:37 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,26 @@ void	set_and_free(char **tab, char **buf)
 	free(*tab);
 	*tab = ft_strjoin(ptr, *buf);
 	free(ptr);
-	ft_memset(*buf, '\0', BUFF_SIZE);
+	ft_memset(*buf, '\0', BUFFSIZE);
 	free(*buf);
-	*buf = ft_strnew(BUFF_SIZE + 1);
+	*buf = ft_strnew(BUFFSIZE + 1);
 }
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*tab[FD_LIMIT];
+	static char	*tab[FDLIMIT];
 	char		*buf;
 	int			a;
 
-	if (fd < 0 || !(line) || BUFF_SIZE <= 0)
+	if (fd < 0 || !(line) || BUFFSIZE <= 0)
 		return (-1);
 	if (!(tab[fd]))
 		tab[fd] = ft_strdup("");
-	buf = ft_strnew(BUFF_SIZE + 1);
+	buf = ft_strnew(BUFFSIZE + 1);
 	if (ft_strlen(tab[fd]) > 0)
 		if (chomp_line(&tab[fd], line) == 1)
 			return (1);
-	while ((a = read(fd, buf, BUFF_SIZE)) >= 0)
+	while ((a = read(fd, buf, BUFFSIZE)) >= 0)
 	{
 		if (a == 0)
 		{

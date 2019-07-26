@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 13:36:45 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/06/19 23:07:37 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/26 00:52:46 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int		get_n_char(int fd, char **line, int size)
 {
-	static char	*tab[FD_LIMIT];
+	static char	*tab[FDLIMIT];
 	char		*buf;
 	int			a;
 
