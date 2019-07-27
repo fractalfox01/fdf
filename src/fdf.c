@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 13:57:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/26 00:05:50 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/27 00:05:02 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,28 @@ void	passoff_1(int key, t_fdf *glb)
 		fdf_close(glb);
 	else if (key == 15)
 		map_reset(glb);
+	else if (key == 11)
+		map_scale_up(glb);
+	else if (key == 9)
+		map_scale_down(glb);
+	else if (key == 84)
+		map_rotate_down(glb);
+	else if (key == 85)
+		map_rotate_right_down(glb);
+	else if (key == 83)
+		map_rotate_left_down(glb);
+	else if (key == 86)
+		map_rotate_right(glb);
+}
+
+void	passoff_2(int key, t_fdf *glb)
+{
+	if (key == 88)
+		map_rotate_left(glb);
 	else if (key == 123)
 		map_left(glb);
+	else if (key == 92)
+		map_rotate_right_up(glb);
 	else if (key == 124)
 		map_right(glb);
 	else if (key == 126)
@@ -28,34 +48,16 @@ void	passoff_1(int key, t_fdf *glb)
 		map_down(glb);
 	else if (key == 91)
 		map_rotate_up(glb);
-	else if (key == 84)
-		map_rotate_down(glb);
-}
-
-void	passoff_2(int key, t_fdf *glb)
-{
-	if (key == 88)
-		map_rotate_left(glb);
-	else if (key == 86)
-		map_rotate_right(glb);
-	else if (key == 11)
-		map_scale_up(glb);
-	else if (key == 9)
-		map_scale_down(glb);
-	else if (key == 92)
-		map_rotate_right_up(glb);
-	else if (key == 85)
-		map_rotate_right_down(glb);
-	else if (key == 83)
-		map_rotate_left_down(glb);
 	else if (key == 89)
 		map_rotate_left_up(glb);
 }
 
 int		key_router(int key, t_fdf *glb)
 {
-	passoff_1(key, glb);
-	passoff_2(key, glb);
+	if (key < 87)
+		passoff_1(key, glb);
+	else
+		passoff_2(key, glb);
 	return (1);
 }
 

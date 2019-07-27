@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 12:05:54 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/26 00:07:38 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/26 22:24:24 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	fdf_close(t_fdf *glb)
 	ft_putstr("Closing Program...\n");
 	mlx_destroy_window(glb->mlx, glb->mlx_win);
 	free_map(glb);
+	system("leaks fdf");
 	exit(0);
 }
 

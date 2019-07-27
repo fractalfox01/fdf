@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 23:31:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/26 00:35:07 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/26 23:58:19 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct	s_fdf
 {
 	void		*mlx;
 	void		*mlx_win;
-	void		*mlx_img;
 	t_cam		cam;
 	t_read		read;
 	t_map		map;

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:57:59 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/26 00:16:04 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/27 00:01:07 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ void	init_global(t_fdf *glb, char *filename)
 {
 	char	*banner;
 
-	banner = ft_strdup(ft_strjoin(filename, " - DRAWN BY TVANDIVI"));
+	banner = ft_strjoin(filename, " - DRAWN BY TVANDIVI");
 	glb->mlx = mlx_init();
 	glb->mlx_win = mlx_new_window(glb->mlx, 2080, 1220, banner);
 	free((void *)banner);
-	glb->mlx_img = mlx_new_image(glb->mlx, 1380, 820);
 	init_camera(glb, &glb->cam);
 	init_read(glb);
 	init_map(glb);

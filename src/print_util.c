@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:02:12 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/26 00:19:48 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/27 00:08:10 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,25 @@ void	print_map(t_fdf *glb)
 	}
 }
 
-void	print_error(int e_nbr, int info)
+void	err_helper(int e_nbr, int info)
 {
+	char	*tmp;
+
 	if (e_nbr == 1)
 	{
+		tmp = ft_strjoin("\tFD received: ", ft_itoa(info));
 		perror("Bad file descriptor...\n");
-		ft_putstr(ft_strjoin("\tFD received: ", ft_itoa(info)));
+		ft_putstr(tmp);
 		ft_putchar('\n');
 	}
 	else if (e_nbr == 2)
 		perror("Bad input file...\n");
+}
+
+void	print_error(int e_nbr, int info)
+{
+	if (e_nbr < 3)
+		err_helper(e_nbr, info);
 	else if (e_nbr == 3)
 	{
 		ft_putstr(FT_RED);

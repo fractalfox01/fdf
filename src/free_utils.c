@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 13:23:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/26 00:09:38 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/27 00:17:36 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,14 @@ void	free_map(t_fdf *glb)
 	i = 0;
 	if (glb)
 	{
+		ft_putstr("Freeing maps...\n");
 		while (i < glb->read.row)
 		{
-			free((void *)glb->map.tab[i++]);
+			free((void *)glb->map.tab[i]);
+			free((void *)glb->map.s_tab[i]);
+			i++;
 		}
+		ft_memdel((void **)glb->map.tab);
+		ft_memdel((void **)glb->map.s_tab);
 	}
 }
