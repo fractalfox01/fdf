@@ -52,10 +52,10 @@ Some of the maps may need to be resized to view any 3d detail.
 <img src="https://user-images.githubusercontent.com/16661289/61991525-26dfbc00-b006-11e9-8013-f8cd222cc220.png" alt="elem2.fdf">
 
 #### 42.fdf
-<img src="" alt="42.fdf">
+<img src="https://user-images.githubusercontent.com/16661289/61991834-9bb4f500-b00a-11e9-9c9c-5737d6ee180f.png" alt="42.fdf">
 
 #### julia.fdf
-<img src="https://user-images.githubusercontent.com/16661289/61991524-2515f880-b006-11e9-9f69-629bfe04dcd9.png" alt="julia.fdf"
+<img src="https://user-images.githubusercontent.com/16661289/61991524-2515f880-b006-11e9-9f69-629bfe04dcd9.png" alt="julia.fdf">
 
 ### Resources:
 
