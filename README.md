@@ -36,7 +36,26 @@ Some of the maps may need to be resized to view any 3d detail.
 
 ## Maps:
 
-https://user-images.githubusercontent.com/16661289/61991520-1c252700-b006-11e9-81ca-7ade19d31d78.png
+#### t1.fdf
+<img src="https://user-images.githubusercontent.com/16661289/61991520-1c252700-b006-11e9-81ca-7ade19d31d78.png" alt="t1.fdf">
+
+#### t2.fdf
+<img src="https://user-images.githubusercontent.com/16661289/61991523-234c3500-b006-11e9-9e9f-b8cbb8b93092.png" alt="t2.fdf">
+
+#### mars.fdf
+<img src="https://user-images.githubusercontent.com/16661289/61991766-f00ba500-b009-11e9-8e90-a721dd7f1a00.png" alt="mars.fdf">
+
+#### elem-fractal.fdf
+<img src="https://user-images.githubusercontent.com/16661289/61991527-29421600-b006-11e9-8809-06d65b5a0a8e.png" alt="elem-fract.fdf">
+
+#### elem2.fdf
+<img src="https://user-images.githubusercontent.com/16661289/61991525-26dfbc00-b006-11e9-8013-f8cd222cc220.png" alt="elem2.fdf">
+
+#### 42.fdf
+<img src="" alt="42.fdf">
+
+#### julia.fdf
+<img src="https://user-images.githubusercontent.com/16661289/61991524-2515f880-b006-11e9-9f69-629bfe04dcd9.png" alt="julia.fdf"
 
 ### Resources:
 
