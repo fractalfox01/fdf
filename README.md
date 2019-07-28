@@ -56,15 +56,3 @@ Some of the maps may need to be resized to view any 3d detail.
 
 #### julia.fdf
 <img src="https://user-images.githubusercontent.com/16661289/61991524-2515f880-b006-11e9-9f69-629bfe04dcd9.png" alt="julia.fdf">
-
-### Resources:
-
-+ https://eddmann.com/posts/implementing-a-dynamic-vector-array-in-c/
-
-+ https://www.scratchapixel.com/
-
-+ http://www.kmjn.org/notes/3d_rendering_intro.html
-
-+ http://faculty.cs.tamu.edu/jchai/cpsc641_spring10/PerspectiveProjection.pdf
-  
-+ https://www.youtube.com/watch?v=fNk_zzaMoSs&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab
