@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 23:31:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/26 23:58:19 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/28 09:31:12 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct	s_fdf
 
 void			print_usage(int i);
 int				fdf(t_fdf *glb, char *filename);
-void			read_map(t_fdf *glb, char *filename);
+int				read_map(t_fdf *glb, char *filename);
 void			print_error(int e_nbr, int info);
 void			print_map(t_fdf *glb);
 void			free_map(t_fdf *glb);
@@ -120,6 +120,6 @@ void			changer(int m, int *sum, int d, int *j);
 void			swap_points(int *a1, int *a2);
 int				skip_digit(char *line);
 int				add_points(t_fdf *glb, float **tab, char *line, int ln);
-int				get_dimensions(t_fdf *glb);
+int				get_dimensions(t_fdf *glb, int inc);
 
 #endif

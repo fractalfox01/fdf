@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 00:32:53 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/26 23:19:01 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/28 09:31:12 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	save_map(t_fdf *glb, char *fn)
 	close(glb->read.fd);
 }
 
-void	read_map(t_fdf *glb, char *filename)
+int		read_map(t_fdf *glb, char *filename)
 {
 	char	*line;
 
@@ -77,16 +77,23 @@ void	read_map(t_fdf *glb, char *filename)
 	if (glb->read.fd > 2)
 	{
 		glb->read.line = line;
-		if (get_dimensions(glb))
+		if (get_dimensions(glb, 0))
 		{
 			glb->read.fd = open(filename, O_RDONLY);
 			save_map(glb, filename);
 		}
 		else
+		{
 			print_error(2, 0);
+			close(glb->read.fd);
+			return (0);
+		}
 	}
 	else
 	{
+		free_map(glb);
 		print_error(1, glb->read.fd);
+		close(glb->read.fd);
 	}
+	return (1);
 }

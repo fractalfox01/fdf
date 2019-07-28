@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 13:57:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/27 00:05:02 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/28 09:24:09 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,22 @@ int		fdf(t_fdf *glb, char *filename)
 	if (glb)
 	{
 		init_global(glb, filename);
-		read_map(glb, filename);
-		init_camera(glb, &glb->cam);
-		init_world(glb, &glb->wld);
-		set_scaled(glb);
-		rotate_points(glb);
-		draw_map(glb);
-		loop_hooks(glb);
-		free_map(glb);
+		if (read_map(glb, filename))
+		{
+			if (glb->read.col == 0 || glb->read.row == 0)
+			{
+				free_map(glb);
+				mlx_destroy_window(glb->mlx, glb->mlx_win);
+				return (1);
+			}
+			init_camera(glb, &glb->cam);
+			init_world(glb, &glb->wld);
+			set_scaled(glb);
+			rotate_points(glb);
+			draw_map(glb);
+			loop_hooks(glb);
+			free_map(glb);
+		}
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:18:01 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/26 00:32:43 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/28 09:30:50 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,10 @@ int		get_columns(t_fdf *glb, char *line, int inc)
 	return (glb->read.col);
 }
 
-int		get_dimensions(t_fdf *glb)
+int		get_dimensions(t_fdf *glb, int inc)
 {
-	int		inc;
 	char	*ln;
 
-	inc = 0;
 	ln = glb->read.line;
 	get_next_line(glb->read.fd, &ln);
 	if (get_columns(glb, ln, 0))
@@ -86,11 +84,15 @@ int		get_dimensions(t_fdf *glb)
 		{
 			glb->read.c_pre = glb->read.col;
 			glb->read.col = 0;
-			get_columns(glb, ln, 0);
-			if (glb->read.c_pre != glb->read.col)
-				print_error(3, 0);
-			glb->read.row += 1;
-			free((void *)ln);
+			if (get_columns(glb, ln, 0))
+			{
+				if (glb->read.c_pre != glb->read.col)
+					print_error(3, 0);
+				glb->read.row += 1;
+				free((void *)ln);
+			}
+			else
+				return (0);
 		}
 	}
 	close(glb->read.fd);
